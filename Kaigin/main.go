@@ -3,7 +3,6 @@ package main
 import (
 	"KGin/KGin"
 	"fmt"
-	"net/http"
 )
 
 func main() {
@@ -11,22 +10,22 @@ func main() {
 
 	kgin := KGin.NewEngine()
 
-	kgin.GET("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "GET:Hello, World!")
+	kgin.GET("/", func(context *KGin.Context) {
+		fmt.Fprintf(context.Writer, "GET:Hello, World!")
 	})
 
-	kgin.GET("/hello", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "GET:Hello, %s!", r.URL.Query().Get("name"))
+	kgin.GET("/hello", func(context *KGin.Context) {
+		fmt.Fprintf(context.Writer, "GET:Hello, %s!", context.Request.URL.Query().Get("name"))
 	})
 
-	kgin.POST("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "POST:Hello, World!")
+	kgin.POST("/", func(context *KGin.Context) {
+		fmt.Fprintf(context.Writer, "POST:Hello, World!")
 	})
-	kgin.PUT("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "PUT:Hello, World!")
+	kgin.PUT("/", func(context *KGin.Context) {
+		fmt.Fprintf(context.Writer, "PUT:Hello, World!")
 	})
-	kgin.DELETE("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "DELETE:Hello, World!")
+	kgin.DELETE("/", func(context *KGin.Context) {
+		fmt.Fprintf(context.Writer, "DELETE:Hello, World!")
 	})
 
 	kgin.Run(":8080")
